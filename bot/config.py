@@ -5,18 +5,18 @@ from decouple import config
 
 class Config:
     # Debug mode
-    DEBUG: bool = t.cast(bool, config('DEBUG', default=False, cast=bool))
+    DEBUG: bool = t.cast(bool, config("DEBUG", default=False, cast=bool))
 
     # Bot token
-    TOKEN: str = t.cast(str, config('TOKEN'))
+    TOKEN: str = t.cast(str, config("TOKEN"))
 
     # Command prefix
-    PREFIX: str = t.cast(str, config('PREFIX', default='!'))
+    PREFIX: str = t.cast(str, config("PREFIX", default="!"))
 
     # List of admin developers.
     ADMINS: t.List[int] = t.cast(
         t.List[int],
-        config('ADMINS', default=[], cast=lambda x: [int(i) for i in x.split(',')])
+        config("ADMINS", default=[], cast=lambda x: [int(i) for i in x.split(",")]),
     )
 
 
