@@ -1,6 +1,6 @@
 [flake8]
 application-import-names=bot
-max-line-length=120
+max-line-length=190
 import-order-style=pycharm
 exclude=
     .venv/**,
