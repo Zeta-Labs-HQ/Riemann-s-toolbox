@@ -1,0 +1,4 @@
+{
+  "exclude": [".venv", ".git", ".cache"],
+  "reportMissingImports": false
+}
