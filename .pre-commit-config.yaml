@@ -40,6 +40,6 @@ repos:
       - id: isort
         name: ISort
         description: Sort imports using isort
-        entry: isort
+        entry: isort .
         language: python
         types: [python]

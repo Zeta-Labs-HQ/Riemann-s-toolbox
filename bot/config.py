@@ -1,18 +1,23 @@
+import typing as t
+
 from decouple import config
 
 
 class Config:
     # Debug mode
-    DEBUG = config('DEBUG', default=False, cast=bool)
+    DEBUG: bool = t.cast(bool, config('DEBUG', default=False, cast=bool))
 
     # Bot token
-    TOKEN = str, config('TOKEN')
+    TOKEN: str = t.cast(str, config('TOKEN'))
 
     # Command prefix
-    PREFIX = config('PREFIX', default='!')
+    PREFIX: str = t.cast(str, config('PREFIX', default='!'))
 
     # List of admin developers.
-    ADMINS = config('ADMINS', default='', cast=lambda x: x.split(','))
+    ADMINS: t.List[int] = t.cast(
+        t.List[int],
+        config('ADMINS', default=[], cast=lambda x: [int(i) for i in x.split(',')])
+    )
 
 
 class LogConfig:
