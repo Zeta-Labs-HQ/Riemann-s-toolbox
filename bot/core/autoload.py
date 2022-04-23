@@ -18,7 +18,9 @@ def is_a_cog(module: types.ModuleType) -> bool:
     return inspect.isfunction(getattr(imported, "setup", None))
 
 
-def get_modules_list(package: types.ModuleType, check: t.Optional[t.Callable] = None) -> t.List[str]:
+def get_modules_list(
+    package: types.ModuleType, check: t.Optional[t.Callable] = None
+) -> t.List[str]:
     """Get the list of the submodules from the specified package."""
     modules = []
 
