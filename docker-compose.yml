@@ -1,0 +1,17 @@
+version: "3.8"
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./logs:/bot/logs
+      - .:/bot:ro
+    tty: true
+    environment:
+      TOKEN: ${TOKEN}
+      PREFIX: ${PREFIX}
+      DEBUG: ${DEBUG}
+      ADMINS: ${ADMINS}
+    restart: on-failure

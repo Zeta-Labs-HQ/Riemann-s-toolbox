@@ -16,7 +16,11 @@ class Config:
     # List of admin developers.
     ADMINS: t.List[int] = t.cast(
         t.List[int],
-        config('ADMINS', default=[], cast=lambda x: [int(i) for i in x.split(',')])
+        config(
+            'ADMINS',
+            default=[],
+            cast=lambda x: [int(i) for i in x.split(',')] if x else []
+        )
     )
 
 
