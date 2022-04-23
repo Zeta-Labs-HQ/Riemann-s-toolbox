@@ -5,16 +5,16 @@ from decouple import config
 
 class Config:
     # Debug mode
-    DEBUG: bool = t.cast(bool, config('DEBUG', default=False, cast=bool))
+    DEBUG = t.cast(bool, config('DEBUG', default=False, cast=bool))
 
     # Bot token
-    TOKEN: str = t.cast(str, config('TOKEN'))
+    TOKEN = t.cast(str, config('TOKEN'))
 
     # Command prefix
-    PREFIX: str = t.cast(str, config('PREFIX', default='!'))
+    PREFIX = t.cast(str, config('PREFIX', default='!'))
 
     # List of admin developers.
-    ADMINS: t.List[int] = t.cast(
+    ADMINS = t.cast(
         t.List[int],
         config(
             'ADMINS',
