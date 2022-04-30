@@ -8,10 +8,10 @@ license = "MIT"
 [tool.poetry.dependencies]
 python = "^3.8"
 taskipy = "^1.10.1"
-python-decouple = "^3.6"
+"discord.py" = {extras = ["voice"], version = "^1.7.3"}
 aiohttp = "^3.7.4post0"
 loguru = "^0.6.0"
-"discord.py" = {extras = ["voice"], version = "^1.7.3"}
+python-decouple = "^3.6"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^4.0.1"

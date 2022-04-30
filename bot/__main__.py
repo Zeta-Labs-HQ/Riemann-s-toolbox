@@ -1,6 +1,6 @@
 from discord import Game, Intents
 
-from .config import Config
+from .config import VERSION, Config
 from .core.bot import Bot
 
 # Intents
@@ -8,7 +8,7 @@ intents = Intents.default()
 
 # Bot
 bot = Bot(
-    version="0.1.0",
+    version=VERSION,
     command_prefix=Config.PREFIX,
     intents=intents,
     activity=Game(name=f"Call me with {Config.PREFIX}help"),

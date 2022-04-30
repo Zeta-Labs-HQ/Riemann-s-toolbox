@@ -2,6 +2,8 @@ import typing as t
 
 from decouple import config
 
+VERSION = "0.1.0"
+
 
 class Config:
     # Debug mode
