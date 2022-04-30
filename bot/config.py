@@ -7,22 +7,22 @@ VERSION = "0.1.0"
 
 class Config:
     # Debug mode
-    DEBUG = t.cast(bool, config('DEBUG', default=False, cast=bool))
+    DEBUG = t.cast(bool, config("DEBUG", default=False, cast=bool))
 
     # Bot token
-    TOKEN = t.cast(str, config('TOKEN'))
+    TOKEN = t.cast(str, config("TOKEN"))
 
     # Command prefix
-    PREFIX = t.cast(str, config('PREFIX', default='!'))
+    PREFIX = t.cast(str, config("PREFIX", default="!"))
 
     # List of admin developers.
     ADMINS = t.cast(
         t.List[int],
         config(
-            'ADMINS',
+            "ADMINS",
             default=[],
-            cast=lambda x: [int(i) for i in x.split(',')] if x else []
-        )
+            cast=lambda x: [int(i) for i in x.split(",")] if x else [],
+        ),
     )
 
 
