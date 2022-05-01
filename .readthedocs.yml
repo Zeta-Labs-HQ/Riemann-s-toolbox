@@ -1,0 +1,20 @@
+version: 2
+formats: []
+
+build:
+  tools:
+    python: "3"
+
+
+sphinx:
+  configuration: docs/source/conf.py
+  fail_on_warning: true  # Replace with false if needed
+  builder: html
+
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
