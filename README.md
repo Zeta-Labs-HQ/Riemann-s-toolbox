@@ -1,3 +1,3 @@
-# ζ Zeta Template
+# Riemann utility package
 
-Unopinionated discord.py template for the Zeta series of bots, and for everyone.
+Unopinionated discord.py utility for use in the ζ series of bots, and for everyone.
