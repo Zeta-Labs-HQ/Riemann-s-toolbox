@@ -12,8 +12,8 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import pathlib
-import sys
 import re
+import sys
 
 sys.path.insert(0, os.path.abspath("."))
 sys.path.insert(0, os.path.abspath("extensions"))
@@ -30,7 +30,9 @@ author = "Zeta labs"
 
 version = ""
 with open("../../riemann/__init__.py", encoding="utf-8") as f:
-    version = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE).group(1)
+    version = re.search(
+        r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
+    ).group(1)
 
 release = version
 
@@ -42,7 +44,10 @@ rst_prolog = """
 """
 
 extlinks = {
-    "issue": ("https://github.com/Zeta-Labs-HQ/Riemann-s-toolbox/issues/%s", "issue %s"),
+    "issue": (
+        "https://github.com/Zeta-Labs-HQ/Riemann-s-toolbox/issues/%s",
+        "issue %s",
+    ),
 }
 
 
@@ -98,9 +103,7 @@ html_static_path = ["_static"]
 
 html_experimental_html5_writer = True
 
-html_context = {
-    "discord_invite": "https://discord.gg/eFfjdyZ"
-}
+html_context = {"discord_invite": "https://discord.gg/eFfjdyZ"}
 
 resource_links = {
     "discord": "https://discord.gg/eFfjdyZ",
