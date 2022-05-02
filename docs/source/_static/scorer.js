@@ -45,11 +45,6 @@ function __score(haystack, regex) {
     return (subLength * 1000 + start) / 1000.0;
 }
 
-// unused for now
-function __cleanNamespaces(query) {
-    return query.replace(/(discord\.(ext\.)?)?(.+)/, '$3');
-}
-
 Scorer = {
 
     // Implement the following function to further tweak the score for each result
@@ -59,7 +54,7 @@ Scorer = {
         // only inflate the score of things that are actual API reference things
         const [, title, , , score] = result;
 
-        if (pattern !== null && title.startsWith('discord.')) {
+        if (pattern !== null) { // && title.startsWith('discord.')
             let _score = __score(title, pattern);
             if (_score === Number.MAX_VALUE) {
                 return score;
