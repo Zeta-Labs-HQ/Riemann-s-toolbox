@@ -69,7 +69,6 @@ extensions = [
 intersphinx_mapping = {
     "py": ("https://docs.python.org/3", None),
     "aio": ("https://docs.aiohttp.org/en/stable/", None),
-    "req": ("https://docs.python-requests.org/en/latest/", None),
     "pg": ("https://www.psycopg.org/psycopg3/docs", None),
     "dpy": ("https://discordpy.readthedocs.io/en/latest/", None),
 }
