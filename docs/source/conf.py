@@ -98,6 +98,15 @@ html_static_path = ["_static"]
 
 html_experimental_html5_writer = True
 
+html_context = {
+    "discord_invite": "https://discord.gg/eFfjdyZ"
+}
+
+resource_links = {
+    "discord": "https://discord.gg/eFfjdyZ",
+    "issues": "https://github.com/Zeta-Labs-HQ/Riemann-s-toolbox/issues",
+}
+
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "friendly"
 

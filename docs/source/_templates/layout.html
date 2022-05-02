@@ -1,3 +1,26 @@
+<!--
+The MIT License (MIT)
+
+Copyright (c) 2015-present Rapptz
+
+Permission is hereby granted, free of charge, to any person obtaining a
+copy of this software and associated documentation files (the "Software"),
+to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense,
+and/or sell copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+DEALINGS IN THE SOFTWARE.
+-->
 <!DOCTYPE html>
 <html>
 <head>
@@ -58,10 +81,10 @@
     {#- The main navigation header #}
     <header class="grid-item">
       <nav>
-        <a href="{{ pathto(master_doc)|e }}" class="main-heading">discord.py</a>
-        <a href="https://github.com/Rapptz/discord.py" title="GitHub"><span class="material-icons custom-icons">github</span></a>
+        <a href="{{ pathto(master_doc)|e }}" class="main-heading">Riemann</a>
+        <a href="https://github.com/Zeta-Labs-HQ/Riemann-s-toolbox" title="GitHub"><span class="material-icons custom-icons">github</span></a>
         <a href="{{ discord_invite }}" title="{{ _('Discord') }}"><span class="material-icons custom-icons">discord</span></a>
-        <a href="{{ pathto('faq') }}" title="FAQ"><span class="material-icons">help_center</span></a>
+        <!--<a href="{{ pathto('faq') }}" title="FAQ"><span class="material-icons">help_center</span></a>!-->
         {#- If we have more links we can put them here #}
         <a onclick="mobileSearch.open();" title="{{ _('Search') }}" id="open-search" class="mobile-only"><span class="material-icons">search</span></a>
         <a onclick="mobileSearch.close();" title="{{ _('Close') }}" id="close-search" class="mobile-only" hidden><span class="material-icons">close</span></a>
@@ -78,18 +101,6 @@
       </nav>
     </header>
     {#- The sub-header with search and extension related selection #}
-    <div class="sub-header grid-item">
-      <label for="documentation_select">{{ _('View Documentation For') }}</label>
-      <select id="documentation_select" onchange="window.location = this.value;">
-        {%- if pagename is prefixedwith 'ext/' %}
-        <option value="{{ pathto(master_doc)|e }}">discord</option>
-        {%- else %}
-        <option value="{{ pathto(pagename) }}" selected>discord</option>
-        {%- endif %}
-        {%- for ext, p in discord_extensions %}
-        <option value="{{ pathto(p + '/index')|e }}" {% if pagename is prefixedwith p %}selected{% endif %}>{{ ext }}</option>
-        {%- endfor %}
-      </select>
       <form role="search" class="search" action="{{ pathto('search') }}" method="get">
         <div class="search-wrapper">
           <input type="search" name="q" placeholder="{{ _('Search documentation') }}" />
