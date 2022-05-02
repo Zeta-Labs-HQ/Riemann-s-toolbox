@@ -1174,7 +1174,7 @@ Historically however, thanks to:
   }
 
   /* hide the welcome text */
-  section#welcome-to-the-riemann-documentation > h1 {
+  section#welcome-to-riemann > h1 {
     display: none;
   }
 

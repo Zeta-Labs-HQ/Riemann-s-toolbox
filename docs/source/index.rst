@@ -1,5 +1,5 @@
-Welcome to the Riemann documentation
-=====================================
+Welcome to Riemann
+====================
 
 
 .. toctree::
