@@ -28,4 +28,5 @@ setup(
     version=version,
     long_description=readme,
     long_description_content_type="text/markdown",
+    install_requires=requirements,
 )
