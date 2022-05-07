@@ -1,8 +1,8 @@
 """Setup options for installing the package."""
 
 import re
-from setuptools import setup
 
+from setuptools import setup
 
 with open("requirements.txt", encoding="utf-8") as file:
     requirements = file.read().splitlines()
