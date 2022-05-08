@@ -1,7 +1,7 @@
 """Various utility functions."""
 
-from os import path
 import typing as t
+from os import path
 
 import toml
 
