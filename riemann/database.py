@@ -5,9 +5,9 @@ import typing as t
 from contextlib import asynccontextmanager
 
 if t.TYPE_CHECKING:
-    import psycopg_pool
-    import psycopg
     import aiosqlite
+    import psycopg
+    import psycopg_pool
 else:
     psycopg_pool = psycopg = aiosqlite = t.Any
 
