@@ -1,2 +1,2 @@
 include requirements.txt
-include riemann/data/defaults.toml
+include riemann/config/defaults.toml

@@ -28,6 +28,8 @@ extras_require = {
     # Database
     "sqlite": ["aiosqlite>=0.17.0"],
     "postgresql": ["psycopg[binary, pool]>=3"],
+    # Caching using redis
+    "caching": ["aioredis>=2.0.1"],
 }
 extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
