@@ -27,10 +27,7 @@ if not VERSION:
 extras_require = {
     # Database
     "sqlite": ["aiosqlite==0.17.0"],
-    "postgres": [
-        "psycopg==3.0.12",
-        "psycopg_pool==3.1.1"
-    ]
+    "postgres": ["psycopg==3.0.12", "psycopg_pool==3.1.1"],
 }
 extras_require["all"] = list(
     chain.from_iterable(extras_require.values())
@@ -41,11 +38,9 @@ setup(
     version=VERSION,
     long_description=README,
     long_description_content_type="text/markdown",
-
     # Package data
     packages=find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
     package_data={"riemann": ["py.typed"]},
-
     # Installation data
     install_requires=[
         "requests==2.25.1",
