@@ -15,7 +15,7 @@ class Bot(discord.Client):
         """Initialize the bot."""
         self.config = utils.load_config(config_path)
         self.database: database.Database = None  # type: ignore
-        self.logger: logging.Logging = None  # type: ignore
+        self.logger: logging.Logger = None  # type: ignore
 
         if "token" not in self.config:
             raise ValueError("Missing token in configuration.")

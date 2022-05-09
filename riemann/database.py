@@ -22,11 +22,6 @@ class Database(abc.ABC):
     """Database abstract class."""
 
     @abc.abstractmethod
-    @classmethod
-    async def setup(cls, config: t.Mapping[str, t.Any]) -> "Database":
-        """Initialize the database."""
-
-    @abc.abstractmethod
     async def close(self) -> None:
         """Close the database."""
 
@@ -39,11 +34,6 @@ class Database(abc.ABC):
 
 class NoDatabase(Database):
     """There is no database."""
-
-    @classmethod
-    async def setup(cls, config: t.Mapping[str, t.Any]) -> t.NoReturn:
-        """Initialize the database."""
-        raise RuntimeError("There is no database")
 
     async def close(self) -> None:
         """Close the database that doesn't exist."""

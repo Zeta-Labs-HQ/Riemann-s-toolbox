@@ -15,13 +15,8 @@ else:
     Bot = t.Any
 
 
-class Logging(abc.ABC):
+class Logger(abc.ABC):
     """Provide logging to the riemann client."""
-
-    @abc.abstractmethod
-    @classmethod
-    async def setup(cls, bot: Bot) -> "Logging":
-        """Initialize the logger."""
 
     @abc.abstractmethod
     async def log(
@@ -46,7 +41,7 @@ class Logging(abc.ABC):
         """Log an exception."""
 
 
-class DiscordLogging(Logging):
+class DiscordLogger(Logger):
     """Send log messages to Discord."""
 
     def __init__(
@@ -59,7 +54,7 @@ class DiscordLogging(Logging):
         self.log_channel = log_channel
 
     @classmethod
-    async def setup(cls, bot: Bot) -> "DiscordLogging":
+    async def setup(cls, bot: Bot) -> "DiscordLogger":
         """Initialize the logger."""
         try:
             channel = await bot.fetch_channel(
@@ -160,10 +155,10 @@ class DiscordLogging(Logging):
         await self.log_channel.send(embed=embed)
 
 
-async def load(bot: Bot) -> Logging:
+async def load(bot: Bot) -> Logger:
     """Load the logger."""
     config = bot.config["logging"]
     if config["type"] == "discord":
-        return await DiscordLogging.setup(bot)
+        return await DiscordLogger.setup(bot)
 
     raise ValueError(f"Unknown logger: {config['type']}")
