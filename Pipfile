@@ -6,6 +6,9 @@ name = "pypi"
 [packages]
 "discord.py" = {version = "2.0.0", extras = ["speed"]}
 toml = "==0.10.1"
+aioredis = "==2.0.1"
+aiosqlite = "==0.17.0"
+psycopg = {version = "3.0.12", extras = ["binary", "pool"]}
 
 [dev-packages]
 flake8 = "==4.0.1"

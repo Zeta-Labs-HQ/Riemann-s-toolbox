@@ -1,6 +1,13 @@
 [database]
-type = "sqlite"
 # One of ["postgresql", "sqlite"]
+type = "sqlite"
+
+[caching]
+host = "localhost"
+database = 1  # Database ndex -- Optional.
+# If authentication exists
+# username = "riemann"
+# password = "riemann"
 
 [database.sqlite]
 database = "riemann.db"
@@ -13,11 +20,11 @@ dbname = "riemann"
 password = "riemann"
 
 [logging]
+# Any of ["file", "stderr", "discord"]
 type = "file"
-# one of ["file", "stderr", "discord"]
 
 [logging.file]
 path = "riemann.log"
 
 [logging.discord]
-channel-id = 00000000
+channel-id = 12345678
