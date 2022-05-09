@@ -1,5 +1,6 @@
 [database]
 type = "sqlite"
+# One of ["postgresql", "sqlite"]
 
 [database.sqlite]
 database = "riemann.db"
@@ -8,5 +9,15 @@ database = "riemann.db"
 host = "localhost"
 port = 5432
 user = "riemann"
-database = "riemann"
+dbname = "riemann"
 password = "riemann"
+
+[logging]
+type = "file"
+# one of ["file", "stderr", "discord"]
+
+[logging.file]
+path = "riemann.log"
+
+[logging.discord]
+channel-id = 00000000

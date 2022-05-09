@@ -2,14 +2,12 @@
 
 import re
 from itertools import chain
-from pathlib import Path
 
-from setuptools import find_packages, setup
+from setuptools import setup
 
-# Constant variables
-BASE_DIR = Path(__file__).resolve().parent
-
-README = Path(BASE_DIR / "README.md").read_text()
+# Readme file as long description
+with open("README.md", encoding="utf-8") as file:
+    README = file.read()
 
 # Version locating and assignment
 with open("riemann/__init__.py", encoding="utf-8") as file:
@@ -25,16 +23,17 @@ if not VERSION:
 
 # Dependencies configuration
 extras_require = {
+    "docs": ["sphinx>=4.4.0,<5", "sphinxcontrib_trio>=1.1.2,<2"],
+    "voice": ["discord.py[voice]>=2.0"],
     # Database
-    "sqlite": ["aiosqlite==0.17.0"],
-    "postgres": [
-        "psycopg==3.0.12",
-        "psycopg_pool==3.1.1"
+    "sqlite": ["aiosqlite>=0.17.0"],
+    "postgresql": [
+        "psycopg[binary, pool]>=3"
     ]
 }
 extras_require["all"] = list(
     chain.from_iterable(extras_require.values())
-)  # type: ignore
+)
 
 
 setup(
@@ -42,14 +41,6 @@ setup(
     long_description=README,
     long_description_content_type="text/markdown",
 
-    # Package data
-    packages=find_packages(exclude=["tests", "tests.*", "tools", "tools.*"]),
-    package_data={"riemann": ["py.typed"]},
-
     # Installation data
-    install_requires=[
-        "requests==2.25.1",
-        "aiohttp==3.7.4.post0",
-    ],
     extras_require=extras_require,
 )
