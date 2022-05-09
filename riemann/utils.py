@@ -109,17 +109,19 @@ def partial_messageable_location(
 
 
 def get_location(
-    channel: t.Optional[t.Union[
-        discord.PartialMessageable,
-        discord.Thread,
-        discord.ForumChannel,
-        discord.DMChannel,
-        discord.GroupChannel,
-        discord.TextChannel,
-        discord.VoiceChannel,
-        discord.CategoryChannel,
-        discord.StageChannel,
-    ]],
+    channel: t.Optional[
+        t.Union[
+            discord.PartialMessageable,
+            discord.Thread,
+            discord.ForumChannel,
+            discord.DMChannel,
+            discord.GroupChannel,
+            discord.TextChannel,
+            discord.VoiceChannel,
+            discord.CategoryChannel,
+            discord.StageChannel,
+        ]
+    ],
 ) -> str:
     """Get the location associated with a channel."""
     if isinstance(channel, discord.PartialMessageable):

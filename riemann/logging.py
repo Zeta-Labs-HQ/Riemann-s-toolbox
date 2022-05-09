@@ -1,9 +1,9 @@
 """Provide logging to the riemann client."""
 
 import abc
-from io import StringIO
 import traceback
 import typing as t
+from io import StringIO
 
 import discord
 
@@ -46,7 +46,6 @@ class Logging(abc.ABC):
         """Log an exception."""
 
 
-
 class DiscordLogging(Logging):
     """Send log messages to Discord."""
 
@@ -76,7 +75,9 @@ class DiscordLogging(Logging):
         except discord.NotFound:
             raise ValueError("Logging channel not found.") from None
         except discord.Forbidden:
-            raise RuntimeError("Missing permissions to retrieve logging channel.") from None
+            raise RuntimeError(
+                "Missing permissions to retrieve logging channel."
+            ) from None
         except discord.HTTPException:
             raise RuntimeError("Retrieving the logging channel failed.") from None
 
