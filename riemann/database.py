@@ -8,6 +8,7 @@ if t.TYPE_CHECKING:
     import aiosqlite
     import psycopg
     import psycopg_pool
+
     from .bot import Bot
 else:
     psycopg_pool = psycopg = aiosqlite = t.Any

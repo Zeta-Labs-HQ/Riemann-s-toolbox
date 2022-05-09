@@ -1,7 +1,7 @@
 """Custom bot subclass."""
 
-from os import path
 import typing as t
+from os import path
 
 import discord
 

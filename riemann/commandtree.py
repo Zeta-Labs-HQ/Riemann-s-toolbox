@@ -5,8 +5,8 @@ import typing as t
 import discord
 from discord import app_commands
 
-from .bot import Bot
 from . import utils
+from .bot import Bot
 
 
 class CommandTree(app_commands.CommandTree):
@@ -109,7 +109,7 @@ class CommandTree(app_commands.CommandTree):
             if interaction.command is None:
                 source = "Unknown interaction"
             elif isinstance(interaction.command, app_commands.Command):
-                 source = f"Slash Command {error.command.qualified_name}"
+                source = f"Slash Command {error.command.qualified_name}"
             else:
                 source = f"Context Menu {error.command.qualified_name}"
 
