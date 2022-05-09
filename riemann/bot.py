@@ -9,10 +9,25 @@ from . import database, logging, utils
 
 
 class Bot(discord.Client):
-    """Custom bot subclass."""
+    """Custom bot class for riemann.
+
+    Attributes
+    ----------
+    config: Dict[:class:`str`, Any]
+        Dictionnary representing the configuration of the bot
+    database: :class:`database.Database`
+        Database instance of the bot.
+    logger: :class:`logging.Logger`
+        Logger instance of the bot.
+    """
 
     def __init__(self, config_path: str) -> None:
-        """Initialize the bot."""
+        """Initialize the bot.
+
+        :param config_path: Path to the configuration file
+        :type config_path: :class:`str`
+        """
+        self._config_path = config_path
         self.config = utils.load_config(config_path)
         self.database: database.Database = None  # type: ignore
         self.logger: logging.Logger = None  # type: ignore
@@ -22,7 +37,7 @@ class Bot(discord.Client):
         super().__init__()
 
     async def setup_hook(self) -> None:
-        """Setup the bot."""
+        """Load the necessay dependencies."""
         self.database = await database.load(self)
         self.logger = await logging.load(self)
 
@@ -33,7 +48,17 @@ class Bot(discord.Client):
         title: t.Optional[str] = None,
         description: t.Optional[str] = None,
     ) -> None:
-        """Send an error message to the user."""
+        """Send an error message to the user.
+
+        :param interaction: Interaction that caused the error
+        :type interaction: :class:`discord.Interaction`
+        :param code: HTTP error code associated with the error
+        :type code: int
+        :param title: Title of the error embed
+        :type title: Optional[:class:`str`]
+        :param description: Description of the error embed
+        :type description: Optional[:class:`str`]
+        """
         if (
             title is None
             and description is None

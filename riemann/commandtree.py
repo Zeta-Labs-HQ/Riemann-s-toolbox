@@ -10,7 +10,13 @@ from .bot import Bot
 
 
 class CommandTree(app_commands.CommandTree):
-    """Custom command tree with error handling."""
+    """Custom command tree with error handling.
+
+    Attributes
+    ----------
+    bot: :class:`Bot`
+        Bot instance associated with this command tree
+    """
 
     def __init__(self, bot: Bot) -> None:
         """Initialize the command tree."""
@@ -22,7 +28,13 @@ class CommandTree(app_commands.CommandTree):
         interaction: discord.Interaction,
         error: app_commands.AppCommandError,
     ) -> None:
-        """Handle slash command errors."""
+        """Handle slash command errors.
+
+        :param interaction: Interaction that caused the error
+        :type interaction: :class:`discord.Interaction`
+        :param error: Error that occurred
+        :type error: :class:`discord.app_commands.AppCommandError`
+        """
         error_description: t.Optional[str] = None
 
         if isinstance(error, app_commands.TransformerError):

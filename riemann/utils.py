@@ -14,7 +14,20 @@ def get_role_name(
     identifier: t.Union[int, str],
     default: T = None,
 ) -> t.Union[str, T]:
-    """Get the name of a role based on a has_role check."""
+    """Get the name of a role based on a has_role check.
+
+    :param guild: Guild to check
+    :type guild: :class:`discord.Guild`
+    :param identifier: Role ID or name
+    :type identifier: Union[:class:`int`, :class:`str`]
+    :param default: Default value if the role is not found
+    :type default: Optional[:class:`str`]
+    :return: Name of the role associated with the ID or name
+        If a string is passed, it is directly returned, regardless
+        of if the role exists or not. If the role is not found,
+        the default value is returned.
+    :rtype: Optional[:class:`str`]
+    """
     if isinstance(identifier, int):
         role = guild.get_role(identifier)
         if role is None:
@@ -27,7 +40,15 @@ def get_role_names(
     guild: discord.Guild,
     identifiers: t.List[t.Union[int, str]],
 ) -> t.List[str]:
-    """Same as get_role_name, but for multiple roles."""
+    """Same as get_role_name, but for multiple roles.
+
+    :param guild: Guild to check
+    :type guild: :class:`discord.Guild`
+    :param identifiers: Role IDs or names
+    :type identifiers: List[Union[:class:`int`, :class:`str`]]
+    :return: List of names of the roles associated with the IDs or names
+    :rtype: List[:class:`str`]
+    """
     raw_res = [get_role_name(guild, identifier) for identifier in identifiers]
     return [r for r in raw_res if r is not None]
 
@@ -35,7 +56,13 @@ def get_role_names(
 def load_config(
     configpath: str,
 ) -> t.Dict[str, t.Any]:
-    """Load the config file with defaults."""
+    """Load the config file with defaults.
+
+    :param configpath: Path to the config file
+    :type configpath: :class:`str`
+    :return: The configuration dictionnary
+    :rtype: Dict[:class:`str`, Any]
+    """
     if not path.exists(configpath):
         raise ValueError("Missing TOML configuration file.")
 
@@ -79,7 +106,13 @@ async def response_or_followup(
     interaction: discord.Interaction,
     **kwargs: t.Any,
 ) -> None:
-    """Send a response or followup message."""
+    """Send a response or followup message.
+
+    :param interaction: Interaction to send the message from
+    :type interaction: :class:`discord.Interaction`
+    :param kwargs: Keyword arguments to pass to the send method
+    :type kwargs: Any
+    """
     if interaction.response.is_done():
         await interaction.followup.send(**kwargs)
     else:
@@ -92,7 +125,19 @@ def partial_messageable_location(
     channel_type: t.Optional[discord.ChannelType],
     channel_id: int,
 ) -> str:
-    """Get the location associated with a partial messageable."""
+    """Get the location associated with a partial messageable.
+
+    :param guild: Guild to check
+    :type guild: Optional[:class:`discord.Guild`]
+    :param guild_id: Guild ID to check
+    :type guild_id: Optional[:class:`int`]
+    :param channel_type: Channel type to check
+    :type channel_type: Optional[:class:`discord.ChannelType`]
+    :param channel_id: Channel ID to check
+    :type channel_id: :class:`int`
+    :return: Location associated with the partial messageable
+    :rtype: :class:`str`
+    """
     loc: t.List[str] = []
     if guild is not None:
         loc.append(f"in the Guild {guild.name} ({guild.id})")
@@ -123,7 +168,18 @@ def get_location(
         ]
     ],
 ) -> str:
-    """Get the location associated with a channel."""
+    """Get the location associated with a channel.
+
+    :param channel: Channel to check
+    :type channel: Optional[Union[
+            discord.abc.GuildChannel,
+            discord.abc.PrivateChannel,
+            discord.PartialMessageable,
+            discord.Thread
+            ]]
+    :return: Location associated with the channel
+    :rtype: :class:`str`
+    """
     if isinstance(channel, discord.PartialMessageable):
         return partial_messageable_location(
             channel.guild,

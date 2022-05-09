@@ -64,6 +64,7 @@ extensions = [
 # Links used for cross-referencing stuff
 intersphinx_mapping = {
     "py": ("https://docs.python.org/3", None),
+    "asqlite": ("https://aiosqlite.omnilib.dev/en/stable/", None),
     "aio": ("https://docs.aiohttp.org/en/stable/", None),
     "pg": ("https://www.psycopg.org/psycopg3/docs", None),
     "dpy": ("https://discordpy.readthedocs.io/en/latest/", None),

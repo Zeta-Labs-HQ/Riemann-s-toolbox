@@ -18,6 +18,8 @@ else:
 class Logger(abc.ABC):
     """Provide logging to the riemann client."""
 
+    --slots__ = ()
+
     @abc.abstractmethod
     async def log(
         self,
@@ -38,24 +40,59 @@ class Logger(abc.ABC):
         ],
         error: Exception,
     ) -> None:
-        """Log an exception."""
+        """Log an exception.
+
+        :param user: The user that caused the exception.
+        :type user: Union[:class:`discord.User`, :class:`discord.Member`]
+        :param source: The source of the exception (e.g. the command name)
+        :type source: str
+        :param channel: The channel that the exception occurred in.
+        :type channel: Optional[Union[
+            discord.abc.GuildChannel,
+            discord.abc.PrivateChannel,
+            discord.PartialMessageable,
+            discord.Thread
+            ]]
+        """
 
 
 class DiscordLogger(Logger):
-    """Send log messages to Discord."""
+    """Send log messages to Discord.
+
+    Attributes
+    ----------
+    bot: :class:`Bot`
+        The bot instance.
+    log_channel: :class:`discord.TextChannel`
+        The channel to send log messages to.
+    """
+
+    __slots__ = ("bot", "log_channel")
 
     def __init__(
         self,
         bot: Bot,
         log_channel: discord.TextChannel,
     ) -> None:
-        """Initialize the logger."""
+        """Initialize the logger.
+
+        :param bot: The bot instance.
+        :type bot: :class:`Bot`
+        :param log_channel: The channel to send log messages to.
+        :type log_channel: :class:`discord.TextChannel`
+        """
         self.bot = bot
         self.log_channel = log_channel
 
     @classmethod
     async def setup(cls, bot: Bot) -> "DiscordLogger":
-        """Initialize the logger."""
+        """Initialize the logger.
+
+        :param bot: The bot instance.
+        :type bot: :class:`Bot`
+        :return: The logger instance.
+        :rtype: :class:`DiscordLogger`
+        """
         try:
             channel = await bot.fetch_channel(
                 bot.config["logging"]["discord"]["channel-id"]
@@ -87,7 +124,17 @@ class DiscordLogger(Logger):
         description: str,
         formatted_traceback: str,
     ) -> None:
-        """Send log messages that are too long in a file."""
+        """Send log messages that are too long in a file.
+
+        :param user: The user that caused the exception.
+        :type user: Union[:class:`discord.User`, :class:`discord.Member`]
+        :param title: The title of the log message.
+        :type title: str
+        :param description: The description of the log message.
+        :type description: str
+        :param formatted_traceback: The traceback of the log message.
+        :type formatted_traceback: str
+        """
         pseudo_file = StringIO()
 
         pseudo_file.write(f"{title}\n")
@@ -119,7 +166,20 @@ class DiscordLogger(Logger):
         ],
         error: Exception,
     ) -> None:
-        """Log an error."""
+        """Log an exception.
+
+        :param user: The user that caused the exception.
+        :type user: Union[:class:`discord.User`, :class:`discord.Member`]
+        :param source: The source of the exception (e.g. the command name)
+        :type source: str
+        :param channel: The channel that the exception occurred in.
+        :type channel: Optional[Union[
+            discord.abc.GuildChannel,
+            discord.abc.PrivateChannel,
+            discord.PartialMessageable,
+            discord.Thread
+            ]]
+        """
         title = f"Error in {source}"
 
         description = f"{type(error).__name__} : {error}"
@@ -156,7 +216,13 @@ class DiscordLogger(Logger):
 
 
 async def load(bot: Bot) -> Logger:
-    """Load the logger."""
+    """Load the logger.
+
+    :param bot: The bot instance.
+    :type bot: :class:`Bot`
+    :return: The logger instance.
+    :rtype: :class:`Logger`
+    """
     config = bot.config["logging"]
     if config["type"] == "discord":
         return await DiscordLogger.setup(bot)
