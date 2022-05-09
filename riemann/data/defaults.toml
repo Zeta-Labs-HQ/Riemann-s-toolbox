@@ -1,13 +1,6 @@
 [database]
-# One of ["postgresql", "sqlite"]
-type = "sqlite"
-
-[caching]
-host = "localhost"
-database = 1  # Database ndex -- Optional.
-# If authentication exists
-# username = "riemann"
-# password = "riemann"
+# One of ["none", "postgresql", "sqlite"]
+type = "none"
 
 [database.sqlite]
 database = "riemann.db"
@@ -18,6 +11,17 @@ port = 5432
 user = "riemann"
 dbname = "riemann"
 password = "riemann"
+
+[caching]
+host = "localhost"
+database = 1  # Database ndex -- Optional.
+# If authentication exists
+# username = "riemann"
+# password = "riemann"
+
+[error]
+# Whether or not to show HTTP Cat images to users
+http-cat = true
 
 [logging]
 # Any of ["file", "stderr", "discord"]

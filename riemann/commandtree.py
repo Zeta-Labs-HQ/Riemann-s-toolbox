@@ -1,62 +1,125 @@
 """Custom command tree with error handling."""
 
+import typing as t
 
 import discord
 from discord import app_commands
+
+from .bot import Bot
+from . import utils
 
 
 class CommandTree(app_commands.CommandTree):
     """Custom command tree with error handling."""
 
-    def __init__(self, client: discord.Client):
+    def __init__(self, bot: Bot) -> None:
         """Initialize the command tree."""
-        self.client = client
-        super().__init__(client)
+        self.bot = bot
+        super().__init__(bot)
 
-    async def on_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError)  -> None:
+    async def on_error(
+        self,
+        interaction: discord.Interaction,
+        error: app_commands.AppCommandError,
+    ) -> None:
         """Handle slash command errors."""
-        if isinstance(error, app_commands.CommandInvokeError):
-            pass  # Command raised an exception
-            # original : original exception (Exception)
-            # command : command that raised the exception (Command / ContextMenu)
+        error_description: t.Optional[str] = None
 
-        elif isinstance(error, app_commands.TransformerError):
-            pass  # Failed to convert
+        if isinstance(error, app_commands.TransformerError):
+            error_code = 415
+            error_title = "Failed to convert argument"  # TODO : be more descriptive
 
         elif isinstance(error, app_commands.NoPrivateMessage):
-            pass  # Unavailable in private messages
+            error_code = 403
+            error_title = "This command cannot be used in private messages."
 
         elif isinstance(error, app_commands.MissingRole):
-            pass  # Missing role
-            # mssing_role : role that is missing (str / int), see has_role
+            error_code = 403
+            error_title = "You do not have the required role to use this command"
+            if interaction.guild is not None:
+                error_title += ": " + utils.get_role_name(
+                    interaction.guild, error.missing_role, "Unknown role"
+                )
 
         elif isinstance(error, app_commands.MissingAnyRole):
-            pass  # Does not have any of the specified roles
-            # missing_roles : roles that are missing (List[str / int]), see has_any_role
+            error_code = 403
+            error_title = (
+                "You do not have any of the required roles to use this command"
+            )
+            if interaction.guild is not None:
+                role_names = utils.get_role_names(
+                    interaction.guild, error.missing_roles
+                )
+                if role_names:
+                    error_title += ":\n - " + "\n - ".join(role_names)
 
-        elif isinstance(error, app_commands.MissingPermisions):
-            pass  # User does not have the perms
-            # missing_permissions : lacking permissions (List[str])
+        elif isinstance(error, app_commands.MissingPermissions):
+            error_code = 403
+            error_title = (
+                "You do not have the required permissions to use this command :\n - "
+                + "\n - ".join(
+                    error.missing_permissions,
+                )
+            )
 
         elif isinstance(error, app_commands.BotMissingPermissions):
-            pass  # Bot does not have the perms
-            # missing_permissions : lacking permissions (List[str])
+            error_code = 403
+            error_title = (
+                "I do not have the required permissions for you to use this command :\n - "
+                + "\n - ".join(
+                    error.missing_permissions,
+                )
+            )
 
         elif isinstance(error, app_commands.CommandOnCooldown):
-            pass  # Command on cooldown
-            # cooldown : cooldown triggered (Cooldown)
-            # retry_after : retry after (float)
+            error_code = 429
+            error_title = f"Command on cooldown ! Retry in {error.retry_after} seconds"
 
         elif isinstance(error, app_commands.CommandLimitReached):
-            pass  # Command use limit reached
-            # type : type of command that reached the limit (AppCommandType)
-            # guild_id : guild that reached the limit (None if global)
-            # limit : limit that was reached (int)
+            error_code = 429
+            error_title = "The execution limit for this command has been reached"
+            if error.guild_id is not None:
+                error_title += " in your guild"
+            error_title += f" ({error.limit})"
 
         elif isinstance(error, app_commands.CommandNotFound):
-            pass  # Command not found
-            # name : Name of the command not found
-            # parents : parent commmands that were found (List[str])
-            # type : type of command that was not found (AppCommandType)
+            error_code = 404
+            error_title = f"Slash command {error.name} not found"
+        elif isinstance(error, app_commands.CommandInvokeError):
+            error_code = 500
+            error_title = "An error occured while executing the command"
+
+            if isinstance(error.command, app_commands.Command):
+                source = f"Slash Command {error.command.qualified_name}"
+            else:
+                source = f"Context Menu {error.command.qualified_name}"
+
+            await self.bot.logger.log(
+                interaction.user,
+                source,
+                interaction.channel,
+                error.original,
+            )
         else:
-            pass  # Unkown error type
+            # Unknown AppCommandError !
+            # THIS SHOULD NOT HAPPEN
+            error_code = 521
+            error_title = "A fatal error occured"
+
+            if interaction.command is None:
+                source = "Unknown interaction"
+            elif isinstance(interaction.command, app_commands.Command):
+                 source = f"Slash Command {error.command.qualified_name}"
+            else:
+                source = f"Context Menu {error.command.qualified_name}"
+
+            await self.bot.logger.log(
+                interaction.user,
+                source,
+                interaction.channel,
+                error,
+            )
+
+        await self.bot.interaction_error(
+            interaction, error_code, error_title, error_description
+        )

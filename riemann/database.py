@@ -8,8 +8,10 @@ if t.TYPE_CHECKING:
     import aiosqlite
     import psycopg
     import psycopg_pool
+    from .bot import Bot
 else:
     psycopg_pool = psycopg = aiosqlite = t.Any
+    Bot = t.Any
 
 
 Row = t.Mapping[str, t.Any]
@@ -32,6 +34,22 @@ class Database(abc.ABC):
     async def connection(self) -> t.AsyncIterator["Connection"]:
         """Get a connection."""
         yield Connection()  # type: ignore # pylint: disable=abstract-class-instantiated
+
+
+class NoDatabase(Database):
+    """There is no database."""
+
+    @classmethod
+    async def setup(cls, config: t.Mapping[str, t.Any]) -> t.NoReturn:
+        """Initialize the database."""
+        raise RuntimeError("There is no database")
+
+    async def close(self) -> None:
+        """Close the database that doesn't exist."""
+
+    async def connection(self) -> t.NoReturn:
+        """Get no connection."""
+        raise RuntimeError("The database is a lie")
 
 
 class SQLite(Database):
@@ -239,14 +257,18 @@ class PostgreSQLConnection(Connection):
         return await self.cursor.fetchmany(size)
 
 
-async def load(config: t.Mapping[str, t.Any]) -> Database:
+async def load(bot: Bot) -> Database:
     """Load the database."""
-    database_type = config["database"]["type"]
+    config = bot.config["database"]
+    database_type = config["type"]
+
+    if database_type == "none":
+        return NoDatabase()
 
     if database_type == "postgresql":
-        return await PostgreSQL.setup(config["database"]["postgresql"])
+        return await PostgreSQL.setup(config["postgresql"])
 
     if database_type == "sqlite":
-        return await SQLite.setup(config["database"]["sqlite"])
+        return await SQLite.setup(config["sqlite"])
 
-    raise ValueError(f"Unsupported database type: {config['database']['type']}")
+    raise ValueError(f"Unsupported database type: {config['type']}")
