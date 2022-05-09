@@ -27,20 +27,15 @@ extras_require = {
     "voice": ["discord.py[voice]>=2.0"],
     # Database
     "sqlite": ["aiosqlite>=0.17.0"],
-    "postgresql": [
-        "psycopg[binary, pool]>=3"
-    ]
+    "postgresql": ["psycopg[binary, pool]>=3"],
 }
-extras_require["all"] = list(
-    chain.from_iterable(extras_require.values())
-)
+extras_require["all"] = list(chain.from_iterable(extras_require.values()))
 
 
 setup(
     version=VERSION,
     long_description=README,
     long_description_content_type="text/markdown",
-
     # Installation data
     extras_require=extras_require,
 )
