@@ -13,7 +13,9 @@ class CommandTree(app_commands.CommandTree):
         self.client = client
         super().__init__(client)
 
-    async def on_error(self, interaction: discord.Interaction, error: app_commands.AppCommandError)  -> None:
+    async def on_error(
+        self, interaction: discord.Interaction, error: app_commands.AppCommandError
+    ) -> None:
         """Handle slash command errors."""
         if isinstance(error, app_commands.CommandInvokeError):
             pass  # Command raised an exception
