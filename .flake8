@@ -1,0 +1,20 @@
+[flake8]
+application-import-names=riemann
+max-line-length=88
+import-order-style=pycharm
+exclude=
+    .venv/**,
+    .git/**,
+    docs/**,
+ignore=
+    # Ignore missing type annotations
+    ANN101  # Init
+    ANN102  # cls
+    ANN002  # *args
+    ANN003  # **kwargs
+    # Ignore missing return type annotations for special methods
+    ANN204
+    # Allow lambdas
+    E731
+    # Allow markdown inline HTML
+    MD033

@@ -19,16 +19,17 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 # FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-from sphinx.util.docutils import SphinxDirective
-from sphinx.locale import _
-from docutils import nodes
-from sphinx import addnodes
-
-from collections import OrderedDict, namedtuple
 import importlib
 import inspect
 import os
 import re
+from collections import OrderedDict, namedtuple
+
+from docutils import nodes
+from sphinx import addnodes
+from sphinx.locale import _
+from sphinx.util.docutils import SphinxDirective
+
 
 class attributetable(nodes.General, nodes.Element):
     pass

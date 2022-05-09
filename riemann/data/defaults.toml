@@ -8,5 +8,5 @@ database = "riemann.db"
 host = "localhost"
 port = 5432
 user = "riemann"
-dbname = "riemann"
+database = "riemann"
 password = "riemann"

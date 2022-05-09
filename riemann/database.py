@@ -241,9 +241,12 @@ class PostgreSQLConnection(Connection):
 
 async def load(config: t.Mapping[str, t.Any]) -> Database:
     """Load the database."""
-    if config["database"]["type"] == "postgresql":
+    database_type = config["database"]["type"]
+
+    if database_type == "postgresql":
         return await PostgreSQL.setup(config["database"]["postgresql"])
-    if config["database"]["type"] == "sqlite":
+
+    if database_type == "sqlite":
         return await SQLite.setup(config["database"]["sqlite"])
 
     raise ValueError(f"Unsupported database type: {config['database']['type']}")
