@@ -1,2 +1,3 @@
 include requirements.txt
 include riemann/data/defaults.toml
+include riemann/data/cats/*.jpg
