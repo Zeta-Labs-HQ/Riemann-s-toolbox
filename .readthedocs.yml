@@ -13,13 +13,10 @@ sphinx:
   builder: html
 
 
-# Okay when discord.py >= 2.0 will be out
-#python:
-#  install:
-#    - method: pip
-#      path: .
-#      extra_requirements:
-#        - docs
+
 python:
   install:
-    - requirements: docs/requirements.txt
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
