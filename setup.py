@@ -18,6 +18,10 @@ with open("riemann/__init__.py", encoding="utf-8") as file:
     )
     VERSION = match.group(1) if match else ""
 
+# Requirements
+with open("requirements.txt", encoding="utf-8") as file:
+    REQUIREMENTS = file.read().splitlines()
+
 if not VERSION:
     raise RuntimeError("Version is not set")
 
@@ -38,6 +42,7 @@ setup(
     version=VERSION,
     long_description=README,
     long_description_content_type="text/markdown",
+    install_requires=REQUIREMENTS,
     # Installation data
     extras_require=extras_require,
 )
