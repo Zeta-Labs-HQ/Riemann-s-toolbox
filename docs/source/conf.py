@@ -6,14 +6,13 @@
 # https://www.sphinx-doc.org/en/master/usage/configuration.html
 
 import os
-import pathlib
 import re
 import sys
 
 # -- Path setup --------------------------------------------------------------
 sys.path.insert(0, os.path.abspath("."))
 sys.path.insert(0, os.path.abspath("extensions"))
-sys.path.insert(0, pathlib.Path(__file__).parents[3].resolve().as_posix())
+sys.path.insert(0, os.path.abspath("../.."))
 
 
 # -- Project information -----------------------------------------------------
