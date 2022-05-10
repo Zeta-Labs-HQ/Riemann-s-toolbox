@@ -191,7 +191,7 @@ def get_location(
 
     if isinstance(channel, discord.Thread):
         if channel.parent is not None:
-            base = location(channel.parent)
+            base = get_location(channel.parent)
         else:
             base = (
                 f"in the Guild {channel.guild.name} ({channel.guild.id})"

@@ -87,8 +87,8 @@ class CommandTree(app_commands.CommandTree):
         elif isinstance(error, app_commands.BotMissingPermissions):
             error_code = 403
             error_title = (
-                "I do not have the required permissions for you to use this command :\n - "
-                + "\n - ".join(
+                "I do not have the required permissions for you to use this command :"
+                "\n - " + "\n - ".join(
                     error.missing_permissions,
                 )
             )

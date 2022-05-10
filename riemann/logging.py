@@ -223,7 +223,7 @@ class DiscordLogger(Logger):
         if self.bot.user is not None:
             embed.set_footer(
                 text=f"{self.bot.user.name} Logging",
-                icon_url=str(bot.user.display_avatar),
+                icon_url=str(self.bot.user.display_avatar),
             )
 
         await self.log_channel.send(embed=embed)
@@ -265,7 +265,6 @@ class StdErrLogger(Logger):
             discord.Thread
             ]]
         """
-
         formatted_traceback = "".join(traceback.format_tb(error.__traceback__))
 
         error_msg = (
