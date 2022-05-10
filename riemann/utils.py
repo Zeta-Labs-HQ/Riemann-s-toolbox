@@ -6,14 +6,12 @@ from os import path
 import discord
 import toml
 
-T = t.TypeVar("T")
-
 
 def get_role_name(
     guild: discord.Guild,
     identifier: t.Union[int, str],
-    default: T = None,
-) -> t.Union[str, T]:
+    default: t.Optional[str] = None,
+) -> t.Optional[str]:
     """Get the name of a role based on a has_role check.
 
     :param guild: Guild to check
@@ -54,7 +52,7 @@ def get_role_names(
 
 
 def load_config(
-    configpath: str,
+    configpath: t.Optional[str],
 ) -> t.Dict[str, t.Any]:
     """Load the config file with defaults.
 
@@ -63,6 +61,9 @@ def load_config(
     :return: The configuration dictionnary
     :rtype: Dict[:class:`str`, Any]
     """
+    if configpath is None:
+        configpath = "conf.toml"
+
     if not path.exists(configpath):
         raise ValueError("Missing TOML configuration file.")
 

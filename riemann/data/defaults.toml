@@ -1,3 +1,6 @@
+[bot]
+token = ""
+
 [database]
 # One of ["none", "postgresql", "sqlite"]
 type = "none"

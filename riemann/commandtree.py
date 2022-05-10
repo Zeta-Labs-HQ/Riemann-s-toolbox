@@ -6,7 +6,11 @@ import discord
 from discord import app_commands
 
 from . import utils
-from .bot import Bot
+
+if t.TYPE_CHECKING:
+    from .bot import Bot
+else:
+    Bot = t.Any
 
 
 class CommandTree(app_commands.CommandTree):

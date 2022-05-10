@@ -1,6 +1,7 @@
 """Provide logging to the riemann client."""
 
 import abc
+import sys
 import traceback
 import typing as t
 from io import StringIO
@@ -15,10 +16,11 @@ else:
     Bot = t.Any
 
 
+# pylint: disable=too-few-public-methods
 class Logger(abc.ABC):
     """Provide logging to the riemann client."""
 
-    --slots__ = ()
+    __slots__ = ()
 
     @abc.abstractmethod
     async def log(
@@ -212,7 +214,63 @@ class DiscordLogger(Logger):
             icon_url=str(user.display_avatar),
         )
 
+        if self.bot.user is not None:
+            embed.set_footer(
+                text=f"{self.bot.user.name} Logging",
+                icon_url=str(bot.user.display_avatar),
+            )
+
         await self.log_channel.send(embed=embed)
+
+
+class StdErrLogger(Logger):
+    """Write log messages to stderr."""
+
+    async def log(
+        self,
+        user: t.Union[discord.User, discord.Member],
+        source: str,
+        channel: t.Optional[
+            t.Union[
+                discord.DMChannel,
+                discord.GroupChannel,
+                discord.PartialMessageable,
+                discord.Thread,
+                discord.TextChannel,
+                discord.VoiceChannel,
+                discord.CategoryChannel,
+                discord.StageChannel,
+                discord.ForumChannel,
+            ]
+        ],
+        error: Exception,
+    ) -> None:
+        """Log an exception.
+
+        :param user: The user that caused the exception.
+        :type user: Union[:class:`discord.User`, :class:`discord.Member`]
+        :param source: The source of the exception (e.g. the command name)
+        :type source: str
+        :param channel: The channel that the exception occurred in.
+        :type channel: Optional[Union[
+            discord.abc.GuildChannel,
+            discord.abc.PrivateChannel,
+            discord.PartialMessageable,
+            discord.Thread
+            ]]
+        """
+
+        formatted_traceback = "".join(traceback.format_tb(error.__traceback__))
+
+        error_msg = (
+            f"{discord.utils.utcnow()} UTC\n"
+            f"Error in {source}\n"
+            f"Caused by {user} ({user.id})\n\n"
+            f"{type(error).__name__} : {error}\n"
+            f"{utils.get_location(channel)}\n\n"
+            f"{formatted_traceback}\n\n"
+        )
+        print(error_msg, file=sys.stderr)
 
 
 async def load(bot: Bot) -> Logger:

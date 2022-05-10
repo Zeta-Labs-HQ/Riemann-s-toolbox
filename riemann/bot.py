@@ -5,11 +5,18 @@ from os import path
 
 import discord
 
-from . import database, logging, utils
+from . import utils
+from .database import Database, load as load_database
+from .logging import Logger, load as load_logger
 
 
 class Bot(discord.Client):
     """Custom bot class for riemann.
+
+    .. note::
+        If you do not provide a path to a configuration file,
+        the bot will try the following paths:
+        - `conf.toml`
 
     Attributes
     ----------
@@ -21,7 +28,7 @@ class Bot(discord.Client):
         Logger instance of the bot.
     """
 
-    def __init__(self, config_path: str) -> None:
+    def __init__(self, config_path: t.Optional[str] = None) -> None:
         """Initialize the bot.
 
         :param config_path: Path to the configuration file
@@ -29,17 +36,17 @@ class Bot(discord.Client):
         """
         self._config_path = config_path
         self.config = utils.load_config(config_path)
-        self.database: database.Database = None  # type: ignore
-        self.logger: logging.Logger = None  # type: ignore
+        self.database: Database = None  # type: ignore
+        self.logger: Logger = None  # type: ignore
 
-        if "token" not in self.config:
+        if "token" not in self.config["bot"] or self.config["bot"]["token"] == "":
             raise ValueError("Missing token in configuration.")
         super().__init__()
 
     async def setup_hook(self) -> None:
         """Load the necessay dependencies."""
-        self.database = await database.load(self)
-        self.logger = await logging.load(self)
+        self.database = await load_database(self)
+        self.logger = await load_logger(self)
 
     async def interaction_error(
         self,
