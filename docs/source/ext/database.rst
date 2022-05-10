@@ -12,7 +12,7 @@ arguments
 Database
 --------
 
-.. attributetable:: riemann.database.Database
+.. .. attributetable:: riemann.database.Database
 
 .. autoclass:: riemann.database.Database
     :members:
@@ -21,7 +21,7 @@ Database
 Connection
 ----------
 
-.. attributetable:: riemann.database.Connection
+.. .. attributetable:: riemann.database.Connection
 
 .. autoclass:: riemann.database.Connection
     :members:
