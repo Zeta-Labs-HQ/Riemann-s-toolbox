@@ -1,2 +1,2 @@
-sphinx=4.4.0,<5
+sphinx>=4.4.0,<5
 sphinxcontrib_trio>=1.1.2,<2
