@@ -88,7 +88,8 @@ class CommandTree(app_commands.CommandTree):
             error_code = 403
             error_title = (
                 "I do not have the required permissions for you to use this command :"
-                "\n - " + "\n - ".join(
+                "\n - "
+                + "\n - ".join(
                     error.missing_permissions,
                 )
             )
