@@ -9,7 +9,7 @@ Bot
 
 .. _bot-instance:
 
-.. attributetable:: Bot
+.. .. attributetable:: Bot
 
 .. autoclass:: Bot
     :members:
@@ -18,7 +18,7 @@ Bot
 Command Tree
 ------------
 
-.. attributetable:: CommandTree
+.. .. attributetable:: CommandTree
 
 .. autoclass:: CommandTree
     :members:
