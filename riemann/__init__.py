@@ -9,5 +9,4 @@ __copyright__ = "Copyright (c) 2022 Zeta labs"
 from .bot import Bot
 from .commandtree import CommandTree
 
-
 __all__ = ("Bot", "CommandTree")

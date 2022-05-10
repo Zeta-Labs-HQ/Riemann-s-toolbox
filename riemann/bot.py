@@ -6,8 +6,10 @@ from os import path
 import discord
 
 from . import utils
-from .database import Database, load as load_database
-from .logging import Logger, load as load_logger
+from .database import Database
+from .database import load as load_database
+from .logging import Logger
+from .logging import load as load_logger
 
 
 class Bot(discord.Client):
