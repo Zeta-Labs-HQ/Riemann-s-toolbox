@@ -1,3 +1,4 @@
 sphinx>=4.4.0,<5
 sphinxcontrib_trio>=1.1.2,<2
 toml>=0.10.0
+aiosqlite>=0.17.0
