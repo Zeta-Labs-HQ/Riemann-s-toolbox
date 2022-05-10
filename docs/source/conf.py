@@ -122,4 +122,7 @@ autodoc_default_options = {
     "show-inheritance": True,
 }
 
+autodoc_mock_imports = ["discord"]
+# TODO: Remove when discord.py 2.0 is released & fix .readthedocs.yml
+
 nitpick_ignore_files = []
