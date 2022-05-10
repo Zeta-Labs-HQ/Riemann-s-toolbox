@@ -123,7 +123,7 @@ autodoc_default_options = {
 
 autodoc_typehints_format = "short"
 
-autodoc_mock_imports = ["discord", "psycopg", "psycopg_pool"]
+autodoc_mock_imports = ["discord"]
 # TODO: Remove when discord.py 2.0 is released & fix .readthedocs.yml
 
 nitpick_ignore_files = []

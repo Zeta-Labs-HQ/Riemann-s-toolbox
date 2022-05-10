@@ -18,14 +18,13 @@ with open("riemann/__init__.py", encoding="utf-8") as file:
     )
     VERSION = match.group(1) if match else ""
 
-# Requirements
-with open("requirements.txt", encoding="utf-8") as file:
-    REQUIREMENTS = file.read().splitlines()
-
 if not VERSION:
     raise RuntimeError("Version is not set")
 
 # Dependencies configuration
+with open("requirements.txt", encoding="utf-8") as file:
+    REQUIREMENTS = file.read().splitlines()
+
 extras_require = {
     "docs": ["sphinx>=4.4.0,<5", "sphinxcontrib_trio>=1.1.2,<2"],
     "voice": ["discord.py[voice]>=2.0"],
