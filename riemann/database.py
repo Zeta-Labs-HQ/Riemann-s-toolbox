@@ -62,6 +62,11 @@ class NoDatabase(Database):
 class SQLite(Database):
     """SQLite database interface.
 
+    Parameters
+    ----------
+    connection: :class:`aiosqlite.Connection`
+        Raw connection to the database.
+
     Attributes
     ----------
     conn: :class:`aiosqlite.Connection`
@@ -125,6 +130,11 @@ class SQLite(Database):
 
 class PostgreSQL(Database):
     """PostgreSQL database.
+
+    Parameters
+    ----------
+    pool: :class:`psycopg_pool.AsyncConnectionPool`
+        Raw pool of connections to the database.
 
     Attributes
     ----------

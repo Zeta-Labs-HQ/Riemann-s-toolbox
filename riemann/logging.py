@@ -60,6 +60,13 @@ class Logger(abc.ABC):
 class DiscordLogger(Logger):
     """Send log messages to Discord.
 
+    Parameters
+    ----------
+    bot: :class:`Bot`
+        The bot instance this logger is for
+    log_channel: :class:`discord.TextChannel`
+        The channel to send log messages to
+
     Attributes
     ----------
     bot: :class:`Bot`

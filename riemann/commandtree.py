@@ -17,8 +17,10 @@ else:
 class CommandTree(app_commands.CommandTree):
     """Custom command tree with error handling.
 
-    :param bot: Bot instance
-    :type bot: :class:`~.bot.Bot`
+    Parameters
+    ----------
+    bot: :class:`Bot`
+        Bot instance this CommandTree is built for
 
     Attributes
     ----------

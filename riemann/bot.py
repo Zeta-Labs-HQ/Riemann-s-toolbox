@@ -15,14 +15,13 @@ from .logging import load as load_logger
 class Bot(discord.Client):
     """Custom bot class for riemann.
 
-    .. note::
-        If you do not provide a path to a configuration file,
-        the bot will try the following paths:
+    Parameters
+    ----------
+    config_path : Optional[:class:`str`]
+        Path to the configuration file.
 
-        - `conf.toml`
-
-    :param config_path: Path to the configuration file
-    :type config_path: Optional[:class:`str`]
+        If you do not give a path, the bot will try finding a
+        ``conf.toml`` file in the working directory
 
     Attributes
     ----------
