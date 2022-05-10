@@ -6,8 +6,8 @@ from contextlib import asynccontextmanager
 
 if t.TYPE_CHECKING:
     import aiosqlite
-    import psycopg
-    import psycopg_pool
+    import psycopg  # pylint: disable=unused-import
+    import psycopg_pool  # pylint: disable=unused-import
 
     from .bot import Bot
 else:
@@ -49,7 +49,7 @@ class NoDatabase(Database):
         This function does nothing.
         """
 
-    async def connection(self) -> t.NoReturn:
+    async def connection(self) -> t.NoReturn:  # type: ignore
         """Get no connection.
 
         This function never returns, but rather always errors
@@ -71,7 +71,7 @@ class SQLite(Database):
 
     __slots__ = ("conn", "_is_closed")
 
-    def __init__(self, connection: aiosqlite.Connection) -> None:
+    def __init__(self, connection: "aiosqlite.Connection") -> None:
         """Initialize the database.
 
         :param connection: Connection to the database
@@ -137,7 +137,7 @@ class PostgreSQL(Database):
 
     def __init__(
         self,
-        pool: psycopg_pool.AsyncConnectionPool,
+        pool: "psycopg_pool.AsyncConnectionPool",
     ) -> None:
         """Initialize the database.
 
@@ -256,7 +256,7 @@ class SQLiteConnection(Connection):
 
     __slots__ = ("_conn", "_cursor")
 
-    def __init__(self, conn: aiosqlite.Connection) -> None:
+    def __init__(self, conn: "aiosqlite.Connection") -> None:
         """Initialize the connection.
 
         :param conn: Connection to the database
@@ -350,7 +350,7 @@ class PostgreSQLConnection(Connection):
 
     __slots__ = ("_cursor",)
 
-    def __init__(self, cursor: psycopg.AsyncCursor[t.Any]) -> None:
+    def __init__(self, cursor: "psycopg.AsyncCursor[t.Any]") -> None:
         """Initialize the connection.
 
         :param cursor: Cursor to the database

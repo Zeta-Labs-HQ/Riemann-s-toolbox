@@ -16,7 +16,6 @@ else:
     Bot = t.Any
 
 
-# pylint: disable=too-few-public-methods
 class Logger(abc.ABC):
     """Provide logging to the riemann client."""
 
