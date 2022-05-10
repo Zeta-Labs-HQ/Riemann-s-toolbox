@@ -13,8 +13,12 @@ else:
     Bot = t.Any
 
 
+# pylint: disable=too-few-public-methods
 class CommandTree(app_commands.CommandTree):
     """Custom command tree with error handling.
+
+    :param bot: Bot instance
+    :type bot: :class:`~.bot.Bot`
 
     Attributes
     ----------

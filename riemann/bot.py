@@ -18,7 +18,11 @@ class Bot(discord.Client):
     .. note::
         If you do not provide a path to a configuration file,
         the bot will try the following paths:
+
         - `conf.toml`
+
+    :param config_path: Path to the configuration file
+    :type config_path: Optional[:class:`str`]
 
     Attributes
     ----------
@@ -31,11 +35,7 @@ class Bot(discord.Client):
     """
 
     def __init__(self, config_path: t.Optional[str] = None) -> None:
-        """Initialize the bot.
-
-        :param config_path: Path to the configuration file
-        :type config_path: :class:`str`
-        """
+        """Initialize the bot."""
         self._config_path = config_path
         self.config = utils.load_config(config_path)
         self.database: Database = None  # type: ignore

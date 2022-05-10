@@ -9,5 +9,5 @@ configuration file. Check out :doc:`/configuration` for more information.
 
 .. .. attributetable:: riemann.logging.Logger
 
-.. autoclass:: riemann.logging.Logger
+.. autoclass:: riemann.logging.Logger()
     :members:
