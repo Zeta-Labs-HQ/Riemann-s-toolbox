@@ -8,7 +8,7 @@ from io import StringIO
 
 import discord
 
-from . import utils
+from . import constants, utils
 
 if t.TYPE_CHECKING:
     from .bot import Bot
@@ -198,8 +198,10 @@ class DiscordLogger(Logger):
 
         formatted_traceback = "".join(traceback.format_tb(error.__traceback__))
 
-        if len(description) + len(formatted_traceback) > 4089:
-            # Discord's message limit is 4096 characters, and we add 7 characters
+        if (
+            len(description) + len(formatted_traceback) + 7
+            > constants.EMBED_DESCRIPTION_LENGTH
+        ):
             await self.log_file(
                 user,
                 title,

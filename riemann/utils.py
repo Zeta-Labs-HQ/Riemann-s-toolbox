@@ -7,6 +7,9 @@ import discord
 import toml
 
 
+from .constants import RIEMANN_ROOT
+
+
 def get_role_name(
     guild: discord.Guild,
     identifier: t.Union[int, str],
@@ -71,7 +74,7 @@ def load_config(
         config: t.Dict[str, t.Any] = toml.load(file)
 
     with open(
-        path.join(path.dirname(__file__), "data/defaults.toml"),
+        path.join(RIEMANN_ROOT, "data/defaults.toml"),
         "r",
         encoding="utf-8",
     ) as file:
