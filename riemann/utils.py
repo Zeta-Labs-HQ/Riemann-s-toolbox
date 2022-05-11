@@ -6,7 +6,6 @@ from os import path
 import discord
 import toml
 
-
 from .constants import RIEMANN_ROOT
 
 
