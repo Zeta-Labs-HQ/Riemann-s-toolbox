@@ -4,6 +4,7 @@ import typing as t
 from os import path
 
 import discord
+from discord.ext import commands
 
 from . import utils
 from .database import Database
@@ -12,7 +13,8 @@ from .logging import Logger
 from .logging import load as load_logger
 
 
-class Bot(discord.Client):
+# Use bot to have access to the cool methods
+class Bot(commands.Bot):
     """Custom bot class for riemann.
 
     Parameters
@@ -42,7 +44,7 @@ class Bot(discord.Client):
 
         if "token" not in self.config["bot"] or self.config["bot"]["token"] == "":
             raise ValueError("Missing token in configuration.")
-        super().__init__()
+        super().__init__("", help_command=None)
 
     async def setup_hook(self) -> None:
         """Load the necessay dependencies."""

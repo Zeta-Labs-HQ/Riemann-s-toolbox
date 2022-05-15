@@ -11,3 +11,4 @@ the *conf* attribute of the :ref:`Bot instance <bot-instance>`.
 The complete set of defaults for the current version of Riemann is:
 
 .. literalinclude:: ../../riemann/data/defaults.toml
+    :language: toml
